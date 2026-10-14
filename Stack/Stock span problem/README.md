@@ -6,6 +6,8 @@ You are given an array `arr[]` representing daily stock prices, the stock span f
 
 ## Examples
 
+
+
 ### Example 1:
 
 ```

@@ -11,6 +11,7 @@ class Solution {
             }
             else s1.put(sub,1);
             
+            
             maxfre=Math.max(maxfre,s1.get(sub));
         }
         if(maxfre>=blocks-1)return true;
