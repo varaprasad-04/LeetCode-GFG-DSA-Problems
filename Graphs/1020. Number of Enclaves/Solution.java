@@ -1,0 +1,53 @@
+class Solution {
+    void bfs(int grid[][],boolean visited[][],Queue<int[]> pq){
+        int n=grid.length,m=grid[0].length;
+        int dr[]={-1,1,0,0};
+        int dc[]={0,0,-1,1};
+       while(!pq.isEmpty()){
+            int curr[]=pq.poll();
+            int r=curr[0];
+            int c=curr[1];
+            for(int i=0;i<4;i++){
+                int nr=r+dr[i];
+                int nc=c+dc[i];
+                if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==1 && !visited[nr][nc]){
+                    visited[nr][nc]=true;
+                    pq.add(new int[]{nr,nc});
+                   
+                }
+            }
+        }
+    }
+    public int numEnclaves(int[][] grid) {
+        Queue<int[]> pq=new LinkedList<>();
+        int n=grid.length,m=grid[0].length;
+        boolean visited[][]=new boolean[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if((i==0 || j==0 || i==n-1 || j==m-1) && (grid[i][j]==1 && !visited[i][j])){
+                    pq.add(new int[]{i,j});
+                    visited[i][j]=true;
+                    bfs(grid,visited,pq);
+                }   
+            }
+        }
+        int c=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(!visited[i][j] && grid[i][j]==1)c++;
+            }   
+        }
+        return c;
+        
+    }
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[][] grid = {
+            {0, 0, 0, 0},
+            {1, 0, 1, 0},
+            {0, 1, 1, 0},
+            {0, 0, 0, 0}
+        };
+        System.out.println(sol.numEnclaves(grid)); // Output: 3
+    }
+}
